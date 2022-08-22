@@ -4,7 +4,7 @@
 
 	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY } = process.env;
 
-	const data = {
+	const template_data = {
 		touser: USER_ID,
 		template_id: TEMPLATE_ID,
 		data: {
@@ -27,7 +27,7 @@
 		},
 	};
 	try {
-		const { weather, temperature, love_days, birthday_left, words } = data.data;
+		const { weather, temperature, love_days, birthday_left, words } = template_data.data;
 		// 天气
 		const weathersRes = await axios.get(`http://autodev.openspeech.cn/csp/api/v2.1/weather`, {
 			params: {
@@ -54,7 +54,7 @@
 		// 获取access_token;
 		const accessTokenRes = await axios.get(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`);
 		// 消息推送
-		await axios.post(`https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${accessTokenRes.data.access_token}`, data);
+		await axios.post(`https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${accessTokenRes.data.access_token}`, template_data);
 	} catch (error) {
 		console.log(error);
 	}
