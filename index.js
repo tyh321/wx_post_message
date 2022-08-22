@@ -4,7 +4,7 @@
 
 	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY } = process.env;
 
-	const template_data = {
+	const TEMPLATE_DATA = {
 		touser: USER_ID,
 		template_id: TEMPLATE_ID,
 		data: {
@@ -27,9 +27,9 @@
 		},
 	};
 	try {
-		const { weather, temperature, love_days, birthday_left, words } = template_data.data;
+		const { weather, temperature, love_days, birthday_left, words } = TEMPLATE_DATA.data;
 		// 天气
-		const weathersRes = await axios.get(`http://autodev.openspeech.cn/csp/api/v2.1/weather`, {
+		const { data: weathersRes } = await axios.get(`http://autodev.openspeech.cn/csp/api/v2.1/weather`, {
 			params: {
 				openId: 'aiuicus',
 				clientType: 'android',
@@ -37,7 +37,7 @@
 				city: CITY,
 			},
 		});
-		const { weather: _weather, temp } = weathersRes?.data?.data?.list?.[0];
+		const { weather: _weather, temp } = weathersRes?.data?.list?.[0];
 		weather.value = _weather;
 		temperature.value = temp;
 		// 恋爱天数
@@ -49,12 +49,14 @@
 		const startTime = `${FullYear}-${BIRTHDAY}`;
 		birthday_left.value = Math.abs(dayjs(endTime).diff(dayjs(startTime), 'days'));
 		// 彩虹屁
-		const wordRes = await axios.get('https://api.shadiao.pro/chp');
-		words.value = wordRes.data.data.text;
+		const { data: wordRes } = await axios.get('https://api.shadiao.pro/chp');
+		words.value = wordRes.data.text;
 		// 获取access_token;
-		const accessTokenRes = await axios.get(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`);
+		const { data: accessTokenRes } = await axios.get(
+			`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
+		);
 		// 消息推送
-		await axios.post(`https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${accessTokenRes.data.access_token}`, template_data);
+		await axios.post(`https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${accessTokenRes.access_token}`, TEMPLATE_DATA);
 	} catch (error) {
 		console.log(error);
 	}
