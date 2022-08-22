@@ -47,8 +47,7 @@
 		const isAfter = +new Date(endTime) < Date.now();
 		const FullYear = new Date().getFullYear() + (isAfter ? 1 : 0);
 		const startTime = `${FullYear}-${BIRTHDAY}`;
-		const birthday = dayjs(endTime).diff(dayjs(startTime), 'days');
-		birthday_left.value = +birthday;
+		birthday_left.value = Math.abs(dayjs(endTime).diff(dayjs(startTime), 'days'));
 		// 彩虹屁
 		const wordRes = await axios.get('https://api.shadiao.pro/chp');
 		words.value = wordRes.data.data.text;
