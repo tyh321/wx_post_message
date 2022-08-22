@@ -1,0 +1,22 @@
+name: sendMessage
+on:
+  schedule:
+    - cron: '00 23 * * *'
+  workflow_dispatch:
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Run Project
+        run: npm install && npm run serve
+        env:
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
+          USER_ID: ${{ secrets.USER_ID }}
+          START_DATE: ${{ secrets.START_DATE }}
+          BIRTHDAY: ${{ secrets.BIRTHDAY }}
+          CITY: ${{ secrets.CITY }}

@@ -1,0 +1,25 @@
+{
+  "name": "wx_post_message",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "serve": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanghang0321/wx_post_message.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanghang0321/wx_post_message/issues"
+  },
+  "homepage": "https://github.com/hanghang0321/wx_post_message#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dayjs": "^1.11.5",
+    "dotenv": "^16.0.1"
+  }
+}
