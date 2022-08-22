@@ -19,7 +19,6 @@
   "homepage": "https://github.com/hanghang0321/wx_post_message#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "dayjs": "^1.11.5",
-    "dotenv": "^16.0.1"
+    "dayjs": "^1.11.5"
   }
 }
