@@ -37,6 +37,7 @@
 				city: CITY,
 			},
 		});
+        console.log(weathersRes.data.data);
 		const { weather: _weather, temp } = weathersRes?.data?.data?.list?.[0];
 		weather.value = _weather;
 		temperature.value = temp;
