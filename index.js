@@ -45,8 +45,8 @@
 		// 生日
 		const endTime = `${new Date().getFullYear()}-${BIRTHDAY}`;
 		const isAfter = +new Date(endTime) < Date.now();
-		const FullYear = new Date().getFullYear() + (isAfter ? 1 : 0);
-		const startTime = `${FullYear}-${BIRTHDAY}`;
+		const fullYear = new Date().getFullYear() + (isAfter ? 1 : 0);
+		const startTime = `${fullYear}-${BIRTHDAY}`;
 		birthday_left.value = Math.abs(dayjs(endTime).diff(dayjs(startTime), 'days'));
 		// 彩虹屁
 		const { data: wordRes } = await axios.get('https://api.shadiao.pro/chp');
