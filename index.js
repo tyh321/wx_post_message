@@ -37,7 +37,7 @@
 				city: CITY,
 			},
 		});
-		const { weather: _weather, temp } = weathersRes.data.data.list[0];
+		const { weather: _weather, temp } = weathersRes?.data?.data?.list?.[0];
 		weather.value = _weather;
 		temperature.value = temp;
 		// 恋爱天数
