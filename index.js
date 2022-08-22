@@ -21,7 +21,7 @@
 				value: '',
 			},
 			words: {
-				value: '12',
+				value: '',
 				color: '#' + Math.random().toString(16).substr(2, 6).toUpperCase(),
 			},
 		},
