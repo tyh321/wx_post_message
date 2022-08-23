@@ -56,8 +56,8 @@
 		// 恋爱天数
 		love_day.value = dayjs(new Date()).diff(dayjs(START_DATE), 'days');
 		// 生日
-		const { endTime, startTime } = utils.getBirTime(BIRTHDAY);
-		birthday.value = Math.abs(dayjs(endTime).diff(dayjs(startTime), 'days'));
+		const birTime = utils.getBirTime(BIRTHDAY);
+		birthday.value = Math.abs(dayjs(birTime).diff(dayjs(new Date()), 'days'));
 		// 彩虹屁
 		const { data: wordRes } = await axios.get('https://api.shadiao.pro/chp');
 		words.value = wordRes.data.text;
