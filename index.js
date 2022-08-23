@@ -1,6 +1,7 @@
 (async () => {
 	const axios = require('axios');
 	const dayjs = require('dayjs');
+	const utils = require('./utils');
 
 	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY } = process.env;
 
@@ -8,26 +9,37 @@
 		touser: USER_ID,
 		template_id: TEMPLATE_ID,
 		data: {
+			date: {
+				value: '',
+			},
+			city: {
+				value: CITY,
+			},
 			weather: {
 				value: '',
 			},
-			temperature: {
+			min_temp: {
 				value: '',
 			},
-			love_days: {
+			max_temp: {
 				value: '',
 			},
-			birthday_left: {
+			love_day: {
+				value: '',
+			},
+			birthday: {
 				value: '',
 			},
 			words: {
 				value: '',
-				color: '#' + Math.random().toString(16).substr(2, 6).toUpperCase(),
 			},
 		},
 	};
+
 	try {
-		const { weather, temperature, love_days, birthday_left, words } = TEMPLATE_DATA.data;
+		const { weather, min_temp, max_temp, love_day, birthday, words } = TEMPLATE_DATA.data;
+		// date
+		date.value = dayjs().format('YYYY-MM-DD') + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
 		// 天气
 		const { data: weathersRes } = await axios.get(`http://autodev.openspeech.cn/csp/api/v2.1/weather`, {
 			params: {
@@ -37,20 +49,22 @@
 				city: CITY,
 			},
 		});
-		const { weather: _weather, temp } = weathersRes?.data?.list?.[0];
+		const { weather: _weather, high, low } = weathersRes?.data?.list?.[0];
 		weather.value = _weather;
-		temperature.value = temp;
+		min_temp.value = low + '°C';
+		max_temp.value = high + '°C';
 		// 恋爱天数
-		love_days.value = dayjs(new Date()).diff(dayjs(START_DATE), 'days');
+		love_day.value = dayjs(new Date()).diff(dayjs(START_DATE), 'days');
 		// 生日
-		const endTime = `${new Date().getFullYear()}-${BIRTHDAY}`;
-		const isAfter = +new Date(endTime) < Date.now();
-		const fullYear = new Date().getFullYear() + (isAfter ? 1 : 0);
-		const startTime = `${fullYear}-${BIRTHDAY}`;
-		birthday_left.value = Math.abs(dayjs(endTime).diff(dayjs(startTime), 'days'));
+		const { endTime, startTime } = utils.getBirTime(BIRTHDAY);
+		birthday.value = Math.abs(dayjs(endTime).diff(dayjs(startTime), 'days'));
 		// 彩虹屁
 		const { data: wordRes } = await axios.get('https://api.shadiao.pro/chp');
 		words.value = wordRes.data.text;
+		// 随机颜色
+		for (const key in TEMPLATE_DATA.data) {
+			TEMPLATE_DATA.data[key].color = utils.randomColor();
+		}
 		// 获取access_token;
 		const { data: accessTokenRes } = await axios.get(
 			`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
