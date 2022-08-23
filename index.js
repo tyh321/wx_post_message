@@ -32,6 +32,7 @@
 			},
 			words: {
 				value: '',
+				color: utils.randomColor()
 			},
 		},
 	};
@@ -66,11 +67,6 @@
 		// 彩虹屁
 		const { data: wordRes } = await axios.get('https://api.shadiao.pro/chp');
 		words.value = wordRes.data.text;
-
-		// 随机颜色
-		for (const key in TEMPLATE_DATA.data) {
-			TEMPLATE_DATA.data[key].color = utils.randomColor();
-		}
 
 		// 获取access_token;
 		const { data: accessTokenRes } = await axios.get(
