@@ -37,7 +37,7 @@
 	};
 
 	try {
-		const { weather, min_temp, max_temp, love_day, birthday, words } = TEMPLATE_DATA.data;
+		const { date, weather, min_temp, max_temp, love_day, birthday, words } = TEMPLATE_DATA.data;
 		// date
 		date.value = dayjs().format('YYYY-MM-DD') + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
 		// 天气
