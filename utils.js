@@ -15,8 +15,9 @@ class Utils {
 		return color;
 	}
 	getBirTime(day) {
-		const isAfter = +new Date(endTime) < Date.now();
-		return `${new Date().getFullYear() + (isAfter ? 1 : 0)}-${day}`;
+		const fullYear = new Date().getFullYear();
+		const isAfter = +new Date(`${fullYear}-${day}`) < Date.now();
+		return `${fullYear + (isAfter ? 1 : 0)}-${day}`;
 	}
 }
 

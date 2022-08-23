@@ -76,7 +76,7 @@
 		const { data: accessTokenRes } = await axios.get(
 			`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`
 		);
-		
+
 		// 消息推送
 		await axios.post(`https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${accessTokenRes.access_token}`, TEMPLATE_DATA);
 	} catch (error) {
