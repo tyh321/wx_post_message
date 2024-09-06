@@ -3,7 +3,7 @@
 	const dayjs = require('dayjs');
 	const utils = require('./utils');
 
-	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY } = process.env;
+	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY, CITY_CODE } = process.env;
 
 	const TEMPLATE_DATA = {
 		touser: USER_ID,
@@ -44,18 +44,13 @@
 		date.value = dayjs().format('YYYY-MM-DD') + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
 
 		// 天气
-		const { data: weathersRes } = await axios.get(`http://autodev.openspeech.cn/csp/api/v2.1/weather`, {
-			params: {
-				openId: 'aiuicus',
-				clientType: 'android',
-				sign: 'android',
-				city: CITY,
-			},
-		});
-		const { weather: _weather, high, low } = weathersRes?.data?.list?.[0];
-		weather.value = _weather;
-		min_temp.value = low + '°C';
-		max_temp.value = high + '°C';
+		// https://blog.csdn.net/yan88888888888888888/article/details/106259880
+		const { data: weathersRes } = await axios.get(`http://t.weather.itboy.net/api/weather/city/${CITY_CODE}`);
+		
+		const { type, high, low } = weathersRes?.data?.forecast?.[0];
+		weather.value = type;
+		min_temp.value = low.split(' ')[1];
+		max_temp.value = high.split(' ')[1];
 
 		// 恋爱天数
 		love_day.value = dayjs(new Date()).diff(dayjs(START_DATE), 'days');
