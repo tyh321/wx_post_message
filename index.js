@@ -30,23 +30,24 @@
 			birthday: {
 				value: '',
 			},
+			other: {
+				value: '',
+			},
 			words: {
 				value: '',
-				color: utils.randomColor()
+				// color: utils.randomColor(),
 			},
 		},
 	};
 
 	try {
-		const { date, weather, min_temp, max_temp, love_day, birthday, words } = TEMPLATE_DATA.data;
+		const { date, weather, min_temp, max_temp, love_day, birthday, other, words } = TEMPLATE_DATA.data;
 
 		// date
 		date.value = dayjs().format('YYYY-MM-DD') + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
 
 		// 天气
-		// https://blog.csdn.net/yan88888888888888888/article/details/106259880
 		const { data: weathersRes } = await axios.get(`http://t.weather.itboy.net/api/weather/city/${CITY_CODE}`);
-		
 		const { type, high, low } = weathersRes?.data?.forecast?.[0];
 		weather.value = type;
 		min_temp.value = low.split(' ')[1];
@@ -62,6 +63,11 @@
 		// 彩虹屁
 		const { data: wordRes } = await axios.get('https://api.shadiao.pro/chp');
 		words.value = wordRes.data.text;
+
+		// 备注
+		if (dayjs(dayjs('2024-09-28')).diff(new Date(), 'days') > 0) {
+			other.value = `距离见到老公还有${dayjs(dayjs('2024-09-28')).diff(new Date(), 'days')}天！！！`;
+		}
 
 		// 获取access_token;
 		const { data: accessTokenRes } = await axios.get(
