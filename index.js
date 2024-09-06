@@ -2,6 +2,7 @@
 	const axios = require('axios');
 	const dayjs = require('dayjs');
 	const utils = require('./utils');
+	const calendar = require('js-calendar-converter');
 
 	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY, CITY_CODE } = process.env;
 
@@ -58,7 +59,9 @@
 
 		// 生日
 		const birTime = utils.getBirTime(BIRTHDAY);
-		birthday.value = Math.abs(dayjs(birTime).diff(dayjs(new Date()), 'days'));
+		// 阳历转农历
+		const lunarDate = calendar.lunar2solar(birTime.split('-')[0], birTime.split('-')[1], birTime.split('-')[2]);
+		birthday.value = Math.abs(dayjs(lunarDate.date).diff(dayjs(new Date()), 'days'));
 
 		// 彩虹屁
 		const { data: wordRes } = await axios.get('https://api.shadiao.pro/chp');
