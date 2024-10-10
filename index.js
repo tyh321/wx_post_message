@@ -68,8 +68,9 @@
 		words.value = wordRes.data.text;
 
 		// 备注
-		if (dayjs(dayjs('2024-09-28')).diff(new Date(), 'days') > 0) {
-			other.value = `距离见到老公还有${dayjs(dayjs('2024-09-28')).diff(new Date(), 'days')}天！！！`;
+		const meetTime = dayjs(dayjs('2025-01-26')).diff(new Date(), 'days');
+		if (meetTime > 0) {
+			other.value = `距离见到老公还有${meetTime}天！！！`;
 		}
 
 		// 获取access_token;
