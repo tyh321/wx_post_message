@@ -49,7 +49,11 @@
 
 		// 天气
 		const { data: weathersRes } = await axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${CITY_CODE}&key=${HF_KEY}`);
+		console.log(weathersRes);
+		
 		const { textDay, tempMax, tempMin } = weathersRes?.daily?.[0];
+		console.log(textDay, tempMax, tempMin);
+		
 		weather.value = textDay;
 		min_temp.value = tempMin.split(' ')[1];
 		max_temp.value = tempMax.split(' ')[1];
