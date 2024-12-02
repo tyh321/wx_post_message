@@ -22,3 +22,4 @@ jobs:
           BIRTHDAY: ${{ secrets.BIRTHDAY }}
           CITY: ${{ secrets.CITY }}
           CITY_CODE: ${{ secrets.CITY_CODE }}
+          HF_KEY: ${{ secrets.HF_KEY }}

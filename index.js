@@ -5,7 +5,7 @@
 	const calendar = require('js-calendar-converter');
 
 	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY, CITY_CODE, HF_KEY } = process.env;
-	
+
 	const TEMPLATE_DATA = {
 		touser: USER_ID,
 		template_id: TEMPLATE_ID,
@@ -49,11 +49,7 @@
 
 		// 天气
 		const { data: weathersRes } = await axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${CITY_CODE}&key=${HF_KEY}`);
-		console.log(weathersRes);
-		
 		const { textDay, tempMax, tempMin } = weathersRes?.daily?.[0];
-		console.log(textDay, tempMax, tempMin);
-		
 		weather.value = textDay;
 		min_temp.value = tempMin.split(' ')[1];
 		max_temp.value = tempMax.split(' ')[1];
