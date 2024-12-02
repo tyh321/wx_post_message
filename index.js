@@ -51,8 +51,8 @@
 		const { data: weathersRes } = await axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${CITY_CODE}&key=${HF_KEY}`);
 		const { textDay, tempMax, tempMin } = weathersRes?.daily?.[0];
 		weather.value = textDay;
-		min_temp.value = tempMin.split(' ')[1];
-		max_temp.value = tempMax.split(' ')[1];
+		min_temp.value = tempMin;
+		max_temp.value = tempMax;
 
 		// 恋爱天数
 		love_day.value = dayjs(new Date()).diff(dayjs(START_DATE), 'days');
