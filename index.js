@@ -4,7 +4,7 @@
 	const utils = require('./utils');
 	const calendar = require('js-calendar-converter');
 
-	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY, CITY_CODE, HF_KEY } = process.env;
+	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY, CITY_CODE, HF_KEY, MEET_DAY } = process.env;
 
 	const TEMPLATE_DATA = {
 		touser: USER_ID,
@@ -68,7 +68,7 @@
 		words.value = wordRes.data.text;
 
 		// 备注
-		const meetTime = dayjs(dayjs('2025-01-26')).diff(new Date(), 'days');
+		const meetTime = dayjs(dayjs(MEET_DAY)).diff(new Date(), 'days');
 		if (meetTime > 0) {
 			other.value = `距离见到老公还有${meetTime}天！！！`;
 		}
