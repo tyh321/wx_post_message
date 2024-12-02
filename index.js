@@ -4,8 +4,8 @@
 	const utils = require('./utils');
 	const calendar = require('js-calendar-converter');
 
-	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY, CITY_CODE } = process.env;
-
+	const { APP_ID, APP_SECRET, TEMPLATE_ID, USER_ID, START_DATE, BIRTHDAY, CITY, CITY_CODE, HF_KEY } = process.env;
+	
 	const TEMPLATE_DATA = {
 		touser: USER_ID,
 		template_id: TEMPLATE_ID,
@@ -48,11 +48,11 @@
 		date.value = dayjs().format('YYYY-MM-DD') + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
 
 		// 天气
-		// const { data: weathersRes } = await axios.get(`http://t.weather.itboy.net/api/weather/city/${CITY_CODE}`);
-		// const { type, high, low } = weathersRes?.data?.forecast?.[0];
-		// weather.value = type;
-		// min_temp.value = low.split(' ')[1];
-		// max_temp.value = high.split(' ')[1];
+		const { data: weathersRes } = await axios.get(`https://devapi.qweather.com/v7/weather/3d?location=${CITY_CODE}&key=${HF_KEY}`);
+		const { textDay, tempMax, tempMin } = weathersRes?.daily?.[0];
+		weather.value = textDay;
+		min_temp.value = tempMin.split(' ')[1];
+		max_temp.value = tempMax.split(' ')[1];
 
 		// 恋爱天数
 		love_day.value = dayjs(new Date()).diff(dayjs(START_DATE), 'days');
