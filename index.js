@@ -48,11 +48,11 @@
 		date.value = dayjs().format('YYYY-MM-DD') + ' 星期' + '日一二三四五六'.charAt(new Date().getDay());
 
 		// 天气
-		const { data: weathersRes } = await axios.get(`http://t.weather.itboy.net/api/weather/city/${CITY_CODE}`);
-		const { type, high, low } = weathersRes?.data?.forecast?.[0];
-		weather.value = type;
-		min_temp.value = low.split(' ')[1];
-		max_temp.value = high.split(' ')[1];
+		// const { data: weathersRes } = await axios.get(`http://t.weather.itboy.net/api/weather/city/${CITY_CODE}`);
+		// const { type, high, low } = weathersRes?.data?.forecast?.[0];
+		// weather.value = type;
+		// min_temp.value = low.split(' ')[1];
+		// max_temp.value = high.split(' ')[1];
 
 		// 恋爱天数
 		love_day.value = dayjs(new Date()).diff(dayjs(START_DATE), 'days');
