@@ -1,8 +1,8 @@
 name: sendMessage
+
 on:
   schedule:
-    # 北京时间 10 - 8 （UTC 比北京时间慢 8 小时）
-    - cron: '0 2 * * *'
+    - cron: '0 1 * * *' # 北京时间上午9
   workflow_dispatch:
 
 jobs:
